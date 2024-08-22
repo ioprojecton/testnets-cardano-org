@@ -1,17 +1,9 @@
 #!/bin/bash
 set -e
 
-CHANGED_FILES=`git diff --name-only --cached --relative | grep '\.jsx\?$' | xargs`
-CHANGED_FILES_ARRAY=(${CHANGED_FILES// / })
-RESOLVED_CHANGED_FILES=""
-for i in "${!CHANGED_FILES_ARRAY[@]}"
-do
-  if [ -f "${CHANGED_FILES_ARRAY[i]}" ]; then
-    RESOLVED_CHANGED_FILES+=" ${CHANGED_FILES_ARRAY[i]}"
-  fi
-done
+declare CHANGED_FILES=$(git diff --name-only --cached --relative '*.jsx' '*.js' | xargs -r ls -1 2>/dev/null)
 
-if [ "$RESOLVED_CHANGED_FILES" != "" ]; then
-  npm run lint:changed -- $RESOLVED_CHANGED_FILES
-  if [ $? -ne 0 ]; then exit 1; fi
+if [ -n "$CHANGED_FILES" ]; then
+  npm run lint:changed -- $CHANGED_FILES
+  [ $? -ne 0 ] && exit 1
 fi
