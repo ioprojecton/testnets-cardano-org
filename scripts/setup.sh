@@ -47,7 +47,7 @@ done
 echo $PRODUCTION_DOMAIN > ./static/CNAME
 
 # Prompt for GitHub Repo creation
-echo -e "\nTime to create your remote repository on GitHub, come back here when you have created it. Don't add any files to the repo."
+echo -en "\nTime to create your remote repository on GitHub, come back here when you have created it. Don't add any files to the repo."
 echo -e "\nopening https://github.com/new\n"
 read -p "Press enter to continue ..." any_key
 open "https://github.com/new"
@@ -73,12 +73,12 @@ while [ "$REPO_NAME_CORRECT" == "false" ]; do
 done
 
 # Prompt for linking repo in CircleCI
-echo -e "\nCreate the project in CircleCI"
+echo -en "\nCreate the project in CircleCI"
 echo -e "\nOpening https://circleci.com/add-projects/gh/${REPO_ORGANISATION}"
 read -p "Press enter to continue ..." any_key
 open "https://circleci.com/add-projects/gh/$REPO_ORGANISATION"
 
-echo -e "\nHave you created the CircleCI project? (y/N)"
+echo -en "\nHave you created the CircleCI project? (y/N)"
 declare CREATED_CIRCLE_CI_PROJECT="false"
 while [ "$CREATED_CIRCLE_CI_PROJECT" == "false" ]; do
     read -p ": " created
@@ -102,10 +102,10 @@ done
 
 # Prompt for adding environment variables to CircleCI
 echo -e "\nSet up CircleCI environment variables. Copy the following:"
-echo -e "\n* GIT_EMAIL = $GIT_EMAIL"
-echo -e  "\n* GIT_USERNAME = $GIT_USERNAME"
-echo -e  "\n* GITHUB_USERNAME = $GITHUB_USERNAME"
-echo -e  "\n* GITHUB_TOKEN = $GITHUB_TOKEN"
+echo -en "\n* GIT_EMAIL = $GIT_EMAIL"
+echo -en  "\n* GIT_USERNAME = $GIT_USERNAME"
+echo -en  "\n* GITHUB_USERNAME = $GITHUB_USERNAME"
+echo -en  "\n* GITHUB_TOKEN = $GITHUB_TOKEN"
 
 echo
 
@@ -153,9 +153,9 @@ curl -u $GITHUB_USERNAME:$GITHUB_TOKEN -d '{"default_branch":"staging"}' -H "Con
 
 # Link netlify instructions
 echo -e "\nLink project to netlify"
-echo -e "\n* Set branch to deploy as 'staging'"
-echo -e "\n* Set build command to 'npm run build'"
-echo -e "\n* Set publish directory to 'public/'"
+echo -en "\n* Set branch to deploy as 'staging'"
+echo -en "\n* Set build command to 'npm run build'"
+echo -en "\n* Set publish directory to 'public/'"
 echo -e "\n\nOpening https://app.netlify.com/"
 read -p "Press enter to continue ..." any_key
 open "https://app.netlify.com/"
@@ -168,9 +168,9 @@ while [ "$NETLIFY_LINKED" == "false" ]; do
 done
 
 echo -e "\nOnce Netlify site has been setup, go to the sites settings in Netlify"
-echo -e "\n* Navigate to 'identity'"
-echo -e "\n* Enable identity"
-echo -e "\n* Enable Git Gateway (if this fails then you may need to manually generate the access token https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line)"
+echo -en "\n* Navigate to 'identity'"
+echo -en "\n* Enable identity"
+echo -en "\n* Enable Git Gateway (if this fails then you may need to manually generate the access token https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line)"
 
 echo -e "\n\nHave you updated the Netlify site settings? (y/N)"
 declare NETLIFY_SETTINGS_UPDATED="false"
@@ -180,10 +180,10 @@ while [ "$NETLIFY_SETTINGS_UPDATED" == "false" ]; do
 done
 
 echo -e "\n\nThat concludes the setup process.\nSome additional optional steps:"
-echo -e "\n* Configure access on GitHub repo"
-echo -e "\n* Configure branch protection on GitHub repo"
-echo -e "\n* Setup identity and security on Netlify"
-echo -e "\n* Setup Google Analytics and insert tracking ID into 'src/config/index.js'"
+echo -en "\n* Configure access on GitHub repo"
+echo -en "\n* Configure branch protection on GitHub repo"
+echo -en "\n* Setup identity and security on Netlify"
+echo -en "\n* Setup Google Analytics and insert tracking ID into 'src/config/index.js'"
 echo -e "\n* Setup a new project in Uploadcare for static assets\n"
 
 read -p "Press enter to complete setup ..." any_key
